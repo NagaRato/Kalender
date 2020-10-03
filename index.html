@@ -1,0 +1,162 @@
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <style>
+            body {
+                font-family: Arial;
+            }
+            .open {
+                background: #1b4266;
+                color: white;
+            }
+            .dicht {
+                background: white;
+                color: #236fb6;
+            }
+            .title {
+                background: white;
+                color: #236fb6;
+            }
+            .bar {
+                background: #236fb6;
+            }
+        </style>
+        <script>
+        	months = [
+'Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
+
+            function switchDay(month, daynumber, source) {
+                if (document.getElementById(month + '-' + daynumber).value == 'true') {
+                    document.getElementById(month + '-' + daynumber).value = 'false';
+                }
+                else {
+                    document.getElementById(month + '-' + daynumber).value = 'true';
+                }
+                source.classList.toggle('dicht');
+                source.classList.toggle('open');
+
+            }
+
+            function createCalendar(year, half) {
+            	console.log("creating a new calendar.");
+            	tbody = document.createElement("tbody");
+				tbody.appendChild(createMonthsLabelsRow(half));
+				trbar = document.createElement("tr");
+				tdbar = document.createElement("td");
+				tdbar.className = "bar";
+				tdbar.colSpan = "11";
+				trbar.appendChild(tdbar);
+				tbody.appendChild(trbar);
+				trmonths = document.createElement("tr");
+				for (i = half*6; i < half*6 + 1; i++) {
+					trmonths.appendChild(getMonthCalendar(2020, i));
+				}
+				tbody.appendChild(trmonths);
+            	document.getElementById("calendar").appendChild(tbody);
+            }
+
+            function getCalendarWeeks(firstofMonth) {
+			    return Math.ceil((new Date("N", firstofMonth) + new Date("t", firstofMonth) - 1) / 7);
+			}
+
+            function createMonthsLabelsRow(half) {
+            	trmonths = document.createElement("tr");
+				for (i = half*6; i < half*6 + 1; i++) {
+					if (i != half*6) {
+						tdbar = document.createElement("td");
+	            		tdbar.className = "bar";
+						trmonths.appendChild(tdbar);
+					}
+					tdmonth = document.createElement("td");
+					tdmonth.appendChild(document.createTextNode(months[i]));
+            		tdmonth.className = "title";
+					trmonths.appendChild(tdmonth);
+				}
+				return trmonths;
+            }
+
+            function getMonthCalendar(year, month) {
+				firstofMonth = new Date(year, month, 1, 0,0,0,0);
+				weekgap = 0;
+
+			    tableMonth = document.createElement("table");
+	            for(dayofWeek = 0; dayofWeek < 7; dayofWeek++) {
+	            	console.log("days of week" + dayofWeek);
+	                trweekdays = document.createElement("tr");
+	                trweekdays.appendChild(document.createTextNode(dayofWeek));
+      //               for(weekofMonth = 0; weekofMonth < getCalendarWeeks(firstofMonth); weekofMonth++) {
+						// if (2+dayofWeek+weekofMonth*7-new Date("N", firstofMonth) > new Date("t", firstofMonth) || 2+dayofWeek+weekofMonth*7-new Date("N", firstofMonth) <= 0) {
+						// 	daynumber = "";
+						// 	hiddenfield = '';
+						// 	onclick = '';
+						// }
+						// else {
+						// 	daynumber = 2+dayofWeek+weekofMonth*7-new Date("N", firstofMonth);
+						// 	hiddenfield = '<input type="hidden" id="' + month + '-' + daynumber + '" value="false" />';
+						// 	onclick = " class='dicht' onclick='switchDay(" + month + ", " + daynumber + ", this)'";
+						// }
+      //                   tdday = document.createElement("td");
+      //                   tdday.onclick = onclick;
+      //                   daytext = document.createTextnode(daynumber + hiddenfield);
+      //                   tdday.appendChild(daytext);
+      //                   trweekdays.appendChild(tdday);
+      //               }
+                    tableMonth.appendChild(trweekdays);
+                    console.log(tableMonth);
+	            }
+	            return tableMonth;
+	        }
+        </script>
+    </head>
+    <body onload="createCalendar(2020, 1)">
+        Jaar<input type="number" name="year" value="2020"><br>
+        <input type="radio" name="half" value="0"> eerste helft
+        <input type="radio" name="half" value="1" checked="checked"> tweede helft<br>
+        <input type="submit" value="Toon kalender" onclick="createCalender(2020, 1)">
+        <table id="calendar">
+        </table>
+		<table>
+	        <tbody>
+	        	<tr>
+    				<td class="title">Juli</td>
+					    <td class="bar"></td>
+	    				<td class="title">Augustus</td>
+					    <td class="bar"></td>
+	    				<td class="title">September</td>
+					    <td class="bar"></td>
+	    				<td class="title">Oktober</td>
+					    <td class="bar"></td>
+	    				<td class="title">November</td>
+					    <td class="bar"></td>
+	    				<td class="title">December</td>
+				</tr>
+				<tr>
+				    <td colspan="11" class="bar"></td>
+				</tr>
+				<tr>
+    				<td>
+    					
+    				</td>
+					<td class="bar"></td>
+			    	<td>
+			    	    
+    				</td>
+				    <td class="bar"></td>
+    				<td>
+    				    
+    					</td>
+							    <td class="bar"></td>
+			    				<td>
+			    	    
+    </td>
+							    <td class="bar"></td>
+			    				<td>
+			    			    
+    </td>
+							    <td class="bar"></td>
+			    				<td>
+    </td>
+							</tr>
+		</tbody>
+	</body>
+</html>
