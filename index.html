@@ -7,7 +7,7 @@
                 text-align: center;
             }
             .open {
-                background: #1b4266;
+                background: #236fb6;
                 color: white;
             }
             .dicht {
@@ -17,6 +17,10 @@
             .title {
                 background: white;
                 color: #236fb6;
+                text-align: center;
+            }
+            td {
+                text-align: center;
             }
 			.calendartitle {
                 font-size: 28pt;
@@ -36,16 +40,9 @@
         </style>
         <script>
 			today = new Date();
-			months = [
-'Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
+			months = ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'];
 
-            function switchDay(month, daynumber, source) {
-                if (document.getElementById(month + '-' + daynumber).value == 'true') {
-                    document.getElementById(month + '-' + daynumber).value = 'false';
-                }
-                else {
-                    document.getElementById(month + '-' + daynumber).value = 'true';
-                }
+            function switchDay(source) {
                 source.classList.toggle('dicht');
                 source.classList.toggle('open');
             }
@@ -118,15 +115,11 @@
 	            for(dayofWeek = 0; dayofWeek < 7; dayofWeek++) {
 	                trweekdays = document.createElement("tr");
                     for(weekofMonth = 0; weekofMonth < getCalendarWeeks(firstofMonth); weekofMonth++) {
-                    	if (2+dayofWeek+weekofMonth*7-getIndexOfWeekDay(firstofMonth) > getNumberOfDays(month, year) || 2+dayofWeek+weekofMonth*7-getIndexOfWeekDay(firstofMonth) <= 0) {
-							daynumber = ".";
-						}
-						else {
-							daynumber = 2+dayofWeek+weekofMonth*7-getIndexOfWeekDay(firstofMonth);
-						}
                         tdday = document.createElement("td");
-                        daytext = document.createTextNode(daynumber);
-                        tdday.appendChild(daytext);
+                    	if (2+dayofWeek+weekofMonth*7-getIndexOfWeekDay(firstofMonth) <= getNumberOfDays(month, year) && 2+dayofWeek+weekofMonth*7-getIndexOfWeekDay(firstofMonth) > 0) {
+                            tdday.appendChild(document.createTextNode(2+dayofWeek+weekofMonth*7-getIndexOfWeekDay(firstofMonth)));
+                            tdday.addEventListener("click", function() {switchDay(this)});   
+						}
                         tdday.className = 'dicht';
                         trweekdays.appendChild(tdday);
                     }
