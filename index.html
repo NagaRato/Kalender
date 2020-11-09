@@ -65,10 +65,9 @@
 
             function assembleCalendar() {
             	document.getElementById("year").value = today.getFullYear();
-                var x = Math.floor(today.getMonth()/6);
-                console.log(x);
-            	document.getElementById("half").value = x;
-            	createCalendar(today.getFullYear(), Math.floor(today.getMonth()/6));
+            	document.getElementById("half").value = Math.floor(today.getMonth()/6);
+                slideForward();
+            	createCalendar(document.getElementById("year").value, document.getElementById("half").value);
             }
 
             function createCalendar(year, half) {
