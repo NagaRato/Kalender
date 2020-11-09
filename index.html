@@ -47,9 +47,27 @@
                 source.classList.toggle('open');
             }
 
+            function slideForward() {
+                if (document.getElementById('half').value == 1) {
+                    document.getElementById('year').value++;
+                }
+                document.getElementById('half').value = 1 - document.getElementById('half').value;
+                createCalendar(document.getElementById('year').value, document.getElementById('half').value);
+            }
+
+            function slideBackward() {
+                if (document.getElementById('half').value == 0) {
+                    document.getElementById('year').value--;
+                }
+                document.getElementById('half').value = 1 - document.getElementById('half').value;
+                createCalendar(document.getElementById('year').value, document.getElementById('half').value);
+            }
+
             function assembleCalendar() {
             	document.getElementById("year").value = today.getFullYear();
-            	document.getElementById("half").value = Math.floor(today.getMonth()/6);
+                var x = Math.floor(today.getMonth()/6);
+                console.log(x);
+            	document.getElementById("half").value = x;
             	createCalendar(today.getFullYear(), Math.floor(today.getMonth()/6));
             }
 
@@ -76,7 +94,7 @@
 					tdbarVert = document.createElement("td");
 				}
 				tbody.appendChild(trmonths);
-				document.getElementById('calendar').innerHTML = "";
+				document.getElementById("calendar").innerHTML = "";
             	document.getElementById("calendar").appendChild(tbody);
             }
 
@@ -132,8 +150,13 @@
     </head>
     <body onload="assembleCalendar()">
         Jaar<input type="number" id="year"><br>
-        <select id="half"><option value="0"> eerste helft</option><option value="1"> tweede helft</option></select>
+        <button onclick="slideBackward()">&lt;&lt;</button>
+        <select id="half">
+            <option value="0">eerste helft</option>
+            <option value="1">tweede helft</option>
+        </select>
         <input type="submit" value="Toon kalender" onclick="createCalendar(document.getElementById('year').value, document.getElementById('half').value)">
+        <button onclick="slideForward()">&gt;&gt;</button>
         <div class="calendarDiv">
         	<div id="title" class="title calendartitle"></div>
         	<table id="calendar"></table>
