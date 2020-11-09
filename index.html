@@ -81,11 +81,12 @@
             }
 
             function getCalendarWeeks(firstofMonth) {
-            	return Math.ceil((getIndexOfWeekDay(firstofMonth) + getNumberOfDays(firstofMonth.getMonth(), firstofMonth.getFullYear())) / 7);
+            	return Math.ceil((getIndexOfWeekDay(firstofMonth)-1 + getNumberOfDays(firstofMonth.getMonth(), firstofMonth.getFullYear())) / 7);
 			    				// op welke weekdag begint de maand		hoeveel dagen heeft deze maand?
 			}
+
 			function getIndexOfWeekDay(day) {
-				return day.getDay();
+				return day.getDay() == 0 ? 7 : day.getDay();
 			}
 
 			function getNumberOfDays(month, year) {
